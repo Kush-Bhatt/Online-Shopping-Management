@@ -1,0 +1,81 @@
+Team Members:
+19BCE006 - HET AGHERA
+19BCE023 - MIHIR BHANDERI
+19BCE026 - KUSH BHATT
+
+Queries for Table Creation:
+
+create table Inn_Customer(
+cid varchar2(6) not null,
+name varchar2(15) not null,
+phone number(10) not null,
+address varchar2(50) not null,
+password varchar2(30) not null,
+primary key (cid)
+);
+
+
+create table Inn_Orders(
+oid varchar2(6) not null,
+pid varchar2(6) not null,
+coid varchar2(6) not null,
+cid varchar2(6) not null,
+orderdate date not null,
+quantity number(5) not null,
+deliverystatus varchar2(10) check (deliverystatus in ('InProcess','Fulfilled','ReturnOrder','Cancelled')) not null,
+primary key (oid),
+foreign key (pid) references Inn_Product(pid),
+foreign key (coid) references Inn_Courier(coid),
+foreign key (cid) references Inn_Customer(cid)
+);
+
+
+create table Inn_Courier(
+coid varchar2(6) not null,
+name varchar2(15) not null,
+phone number(10) not null,
+address varchar2(50) not null,
+primary key (coid)
+);
+
+
+create table Inn_Category(
+catid varchar2(6) not null,
+categoryName varchar2(30) not null,
+primary key (catid)
+);
+
+
+create table Inn_Supplier(
+sid varchar2(6) not null,
+sname varchar2(15) not null,
+sphone number(10) not null,
+saddress varchar2(50) not null,
+waddress varchar2(50) not null,
+foreign key (waddress) references Inn_Websites(waddress),
+primary key (sid)
+);
+
+
+create table Inn_Product(
+pid varchar2(6) not null,
+catid varchar2(6) not null,
+pname varchar2(10) not null,
+sid varchar2(6) not null,
+price number(8) not null,
+stock number(5) not null,
+foreign key (catid) references Inn_Category(catid),
+foreign key (sid) references Inn_Supplier(sid),
+primary key (pid)
+);
+
+
+
+create table Inn_Websites(
+waddress varchar2(50) not null,
+wname varchar2(50) not null,
+wphone varchar2(10) not null,
+primary key (waddress)
+);
+
+
